@@ -1,0 +1,99 @@
+body, p, li, td, th{
+	font-family: sans-serif;
+}
+h1{
+	font-size:22px;
+	letter-spacing: 3px;
+	line-height: 1.4;
+	padding:0px;
+	margin:0px 0px 10px 0px;
+	font-weight:400;
+	text-align:left;
+	font-family: sans-serif;
+}
+h2{
+	font-size:18px;
+	letter-spacing: 2px;
+	line-height: 1.8;
+	padding:0px;
+	margin:20px 0px 20px 0px;
+	font-weight:400;
+	text-align:left;
+	font-family: sans-serif;
+}
+h3{
+	font-size:16px;
+	line-height:2;
+	padding:0px;
+	margin:0px 0px 0px 0px;
+	font-weight:700;
+	font-family: sans-serif;
+}
+h4{
+	font-size:16px;
+	line-height:25px;
+	padding:0px;
+	margin:0px 0px 0px 0px;
+	font-weight:400;
+	font-family: sans-serif;
+}
+a.button{
+	display: inline-block;
+	width: auto;
+	height: 30px;
+	padding: 0 24px;
+	color: #fff;
+	line-height: 29px;
+	background: #cc0000;
+	text-decoration: none;
+	font-size: 14px !important;
+	font-weight: 400;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	text-transform: uppercase;
+	border: solid 1px #fff;
+	cursor: pointer;
+
+	-webkit-appearance: none;
+	border-radius: 0;
+}
+.redText{
+	color:#991d21;
+	font-size: 18px;
+}
+.redBrightText{
+	color:#ef4341;
+}
+.redHeader{
+	color: #991d21;
+	font-family: 'Be Vietnam', sans-serif;
+	font-size:24px!important;
+	line-height:1.4!important;
+	padding:0px;
+	margin:0px 0px 10px 0px;
+	font-weight:700;
+	text-transform: uppercase!important;
+	text-align: center;
+	letter-spacing: 0;
+}
+.redItalicText{
+	color: #db3039;
+	font-style: italic;
+	font-weight: 300;
+	font-size: 18px;
+	line-height: 1.4;
+}
+.redBoxedText{
+	color: #db3039;
+	display: block;
+	float: right;
+	background: #eff1f3;
+	padding: 15px 20px;
+	width: 200px;
+	margin: 0 0 0 30px;
+}
+img.borderedImage{
+	border: solid 1px #aaa;
+	padding: 20px;
+}
