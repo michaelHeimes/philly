@@ -135,9 +135,47 @@
         </div>
     </div><!-- /header -->
     <?php
-    $header_image = get_field("header_image");
-    $image_url2 = $header_image['sizes']['header_image'];
+    
+    
+    $header_image = get_field("header_image", get_the_id() );
+    // var_dump($header_image);
+    //$header_image = 'https://philly-ad-club.local/wp-content/uploads/2024/06/news-banner-img1-scaled.jpg';
+    
+    $image_url = '';
+    
+    if( is_array($header_image) ) {
+        $image_url = $header_image['sizes']['header_image'];
+    } else {
+        // Example usage
+        $url = $header_image;
+        $new_url = remove_dynamic_segment($url);
+        
+        echo $new_url;
+        
+
+        $image_id = attachment_url_to_postid(  $new_url );
+        
+        
+        
+        if ( $image_id ) {
+            echo 'The image ID is: ' . $image_id;
+        } else {
+            echo 'Image not found.';
+        }
+        
+        $image_url = $header_image;
+        
+    }
+    
+    
+
+    
+    
+    //var_dump($image_url);
+    // var_dump($header_image);
+    // var_dump($image_id);
+    // $image_url2 = $header_image['sizes']['header_image'];
     ?>
-    <div class="innerVisual workVisual" style="background-image: url(<?php echo $image_url2; ?>);">
+    <div class="innerVisual workVisual" style="background-image: url(<?php echo $image_url; ?>);">
         <div class="innerVisualTitle"><?php the_field('title'); ?></div>
     </div>

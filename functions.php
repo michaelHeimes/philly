@@ -555,7 +555,7 @@ function populate_posts( $form ) {
     return $form;
 }
 
-add_action("gform_after_submission_4", "acf_post_submission", 10, 2);
+//add_action("gform_after_submission_4", "acf_post_submission", 10, 2);
 function acf_post_submission ($entry, $form)
 {
     $post_id = $entry["post_id"];
@@ -564,7 +564,7 @@ function acf_post_submission ($entry, $form)
     update_field("field_5eec8caa89f0a", $values, $post_id);
 }
 
-add_action("gform_after_submission_3", "acf_post_submission2", 10, 2);
+//add_action("gform_after_submission_3", "acf_post_submission2", 10, 2);
 function acf_post_submission2 ($entry, $form)
 {
     $post_id = $entry["post_id"];
@@ -590,21 +590,20 @@ function tierbacklinks($atts){
 add_shortcode('tierbacklinks', 'tierbacklinks');
 
 
-add_action( 'pre_get_posts',  'set_posts_per_page'  );
+add_action( 'pre_get_posts', 'set_posts_per_page' );
 function set_posts_per_page( $query ) {
-    global $wp_query;
-    if ( !is_admin() ){
-        if ($wp_query->query['pagename'] == 'news') {
-            $paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
-            if ($paged == 1) {
+    if ( !is_admin() && $query->is_main_query() ) {
+        if ( isset($query->query['pagename']) && $query->query['pagename'] == 'news' ) {
+            $paged = ( get_query_var('paged') ) ? get_query_var('paged') : 1;
+            if ( $paged == 1 ) {
                 $query->set('posts_per_page', 13);
             } else {
                 $query->set('posts_per_page', 12);
             }
         }
     }
-    return $query;
 }
+
 
 // Remove Read More Links from all excerpts
 function custom_excerpt_more( $more ) {
@@ -617,3 +616,17 @@ function custom_excerpt_length( $length ) {
     return 20;
 }
 add_filter( 'excerpt_length', 'custom_excerpt_length', 999 );
+
+
+// Hack for getting ID from Gravity Form image uploads that have a url in the gravity forms uploads folder instead of the media library url
+function remove_dynamic_segment($url) {
+    // Use a regular expression to match the pattern and remove the dynamic segment
+    $pattern = '/(\/uploads)(\/.*?)(\/\d{4}\/)/';
+    $replacement = '$1$3';
+    $new_url = preg_replace($pattern, $replacement, $url);
+    
+    return $new_url;
+}
+
+
+
