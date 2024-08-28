@@ -231,7 +231,6 @@
                             <strong>Client:</strong> <?php echo $c; ?><br />
                         <?php } ?>
                         <strong>Category:</strong> <?= strip_tags(get_the_term_list($featured_work_post, 'work-category', '', ', ', ''))?></p>
-                        <?=get_the_date();?>
                     </div>
                     <?php
                     $i++;                
