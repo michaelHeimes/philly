@@ -185,16 +185,27 @@
     <div class="visual">
         <div class="visualCaption">
             <?php
+            $slideshow_cutoff_date = '1900-01-01';
+            $slideshow_cutoff_date_field = get_field('slideshow_cutoff_date') ?? null;
+            if( !empty($slideshow_cutoff_date_field) ) {
+                $slideshow_cutoff_date = $slideshow_cutoff_date_field;
+            }
             $args = array(  
                 'post_type'      => 'work',
                 'post_status'    => 'publish',
-                'posts_per_page' => 1,
-                //'orderby'        => 'rand',
+                'posts_per_page' => 10,
+                'orderby'        => 'rand',
                 'meta_query'     => array(
                     array(
                         'key'     => 'header_image',
                         'value'   => '',
                         'compare' => '!=',
+                    ),
+                ),
+                'date_query'     => array(
+                    array(
+                        'after'     => $slideshow_cutoff_date,
+                        'inclusive' => true,
                     ),
                 ),
             );
@@ -220,6 +231,7 @@
                             <strong>Client:</strong> <?php echo $c; ?><br />
                         <?php } ?>
                         <strong>Category:</strong> <?= strip_tags(get_the_term_list($featured_work_post, 'work-category', '', ', ', ''))?></p>
+                        <?=get_the_date();?>
                     </div>
                     <?php
                     $i++;                

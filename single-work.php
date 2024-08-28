@@ -118,7 +118,23 @@ get_header('work');
                             });
                         </script>
                         <a href="<?php echo the_post_thumbnail_url() ?>" class="fancybox">
-                        <?php the_post_thumbnail('large', array('class'=>'post_thumb'));?>
+                        <?php 
+                        // Get the post thumbnail ID
+                        $post_thumbnail_id = get_post_thumbnail_id();
+                        
+                        // Get the post thumbnail URL
+                        $post_thumbnail_url = wp_get_attachment_url($post_thumbnail_id);
+                        
+                        // Check if the thumbnail URL ends with '.gif'
+                        if (strpos($post_thumbnail_url, '.gif') !== false) {
+                            // If the image is a GIF, use the 'full' size
+                            the_post_thumbnail('full', array('class'=>'post_thumb'));
+                        } else {
+                            // Otherwise, use the 'large' size
+                            the_post_thumbnail('large', array('class'=>'post_thumb'));
+                        }
+                        ?>
+
                         </a>
                         <?php
                     }
@@ -135,6 +151,7 @@ get_header('work');
     if($rows)
     {
         foreach($rows as $row) {
+            if( !empty( $row['id_code'] ) ) {
             ?>
             <div class="contentZone1234 pb-30">
                 <div style="padding:57% 0 0 0;position:relative; background: #000;">
@@ -144,6 +161,7 @@ get_header('work');
                 </div>
             </div>
             <?php
+            }
         }
         ?>
         <script src="https://player.vimeo.com/api/player.js"></script>
@@ -169,7 +187,7 @@ get_header('work');
                     
                     // Add extra parameters to src and replace HTML.
                     $params = array(
-                        'controls'  => 0,
+                        'controls'  => 1,
                         'hd'        => 1,
                         'autohide'  => 1
                     );

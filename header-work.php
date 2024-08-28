@@ -159,8 +159,6 @@
         
         if ( $image_id ) {
             echo 'The image ID is: ' . $image_id;
-        } else {
-            echo 'Image not found.';
         }
         
         $image_url = $header_image;
