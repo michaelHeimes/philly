@@ -1,6 +1,6 @@
 <?php
 
-get_header('noimage');
+get_header();
 ?>
 
 <!--<div class="row">

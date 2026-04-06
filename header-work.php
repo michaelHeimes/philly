@@ -109,7 +109,7 @@
 <div class="container">
     <div class="header">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Logo" />
+            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="Logo" />
         </a>
         <a href="#" class="toolTipMobile"><svg class="xrarr" viewBox="0 0 40 17"></svg> Member Login <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
         <div class="navBlock">
@@ -120,7 +120,7 @@
             <div class="navBlockInner">
                 <a href="#" id="activateNav"> </a>
                 <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="mobileLogo">
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Logo" />
+                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.svg" alt="Logo" />
                 </a>
                 <div id="mainNav">
                     <?php wp_nav_menu(array('menu' => 'Main', 'container' => false )); ?>

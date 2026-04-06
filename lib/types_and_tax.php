@@ -24,8 +24,11 @@ function create_post_type() {
       ),
     'menu_icon' => 'dashicons-admin-appearance',
     'public' => true,
-    'has_archive' => true,
-    'rewrite' => array('slug' => 'work'),
+    'has_archive' => false,
+    'rewrite' => [
+        'slug' => 'showcase/work',
+        'with_front' => false,
+    ],
     'supports' => array ('title', 'editor', 'thumbnail')
     )
   );
@@ -44,21 +47,22 @@ function create_post_type() {
     )
   );
 
-  /*
-  register_post_type( 'event',
+  
+  register_post_type( 'past_event',
     array(
       'labels' => array(
-        'name' => __( 'Events' ),
-        'singular_name' => __( 'Event' )
+        'name' => __( 'Past Events' ),
+        'singular_name' => __( 'Past Event' )
       ),
     'menu_icon' => 'dashicons-calendar',
     'public' => true,
     'has_archive' => true,
-    'rewrite' => array('slug' => 'events'),
+    'rewrite' => array('slug' => 'past-events'),
     'supports' => array ('title', 'editor', 'thumbnail')
     )
   );
-
+  
+  /*
   register_post_type( 'ad_locations',
     array(
       'labels' => array(

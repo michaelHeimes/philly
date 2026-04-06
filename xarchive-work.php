@@ -1,6 +1,6 @@
 <?php
 
-get_header('noimage');
+get_header();
 ?>
 
 <div class="content noimage">
@@ -13,7 +13,7 @@ get_header('noimage');
         </div>
         <div class="agRight agRight31 mb-40" style="align-self: self-end;">
             <div style="width: 100%; margin: auto">
-                <a href="<?php echo esc_url( home_url( '/' ) ); ?>work-page/submit-work/" class="button">Submit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
+                <a href="<?php echo esc_url( home_url( '/' ) ); ?>spotlight/spotlight-work/" class="button">Submit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
             </div>
         </div>
     </div>
@@ -124,7 +124,7 @@ get_header('noimage');
 
 
     <div class="contentZone1234">
-        <a href="<?php echo esc_url( home_url( '/' ) ); ?>work-page/submit-work/" class="button">Sumbit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
+        <a href="<?php echo esc_url( home_url( '/' ) ); ?>spotlight/spotlight-work/" class="button">Sumbit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
     </div>
 
     <div class="clear"></div>

@@ -2,7 +2,6 @@
 /**
  * The header for our theme
  */
-
 ?><!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>
@@ -12,94 +11,11 @@
 
     <?php wp_head(); ?>
 
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/template.css" rel="stylesheet" type="text/css" />
     <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,600,700&display=swap" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="<?php echo esc_url( home_url( '/' ) ); ?>favicon.png" />
 
-    <link href="<?php echo get_template_directory_uri(); ?>/assets/css/animate.min.css" rel="stylesheet" type="text/css" />
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.waypoints.min.js"></script>
-
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.cycle2.min.js"></script>
-    <script src="<?php echo get_template_directory_uri(); ?>/assets/js/jquery.cycle2.tile.min.js"></script>
-
-    <?php /* ?>
-    <script src="<?php echo get_template_directory_uri(); ?>/slick/slick.min.js" type="text/javascript" language="text/javascript"></script>
-    <link href="<?php echo get_template_directory_uri(); ?>/slick/slick.css" rel="stylesheet" type="text/css" />
-    <link href="<?php echo get_template_directory_uri(); ?>/slick/slick-theme.css" rel="stylesheet" type="text/css" />
-
-    <script type="text/javascript" src="<?php echo get_template_directory_uri(); ?>/fancybox/jquery.fancybox.js?v=2.1.4"></script>
-    <link rel="stylesheet" type="text/css" href="<?php echo get_template_directory_uri(); ?>/fancybox/jquery.fancybox.css?v=2.1.4" media="screen" />
-    <?php */ ?>
-
-    <script type="text/javascript">
-        function galleryInit(){
-            var ww = document.body.clientWidth;
-            var gal1width = jQuery('#container').width() - 64;
-
-            if (ww < 800) {
-                gal1width = ww;
-            }
-            jQuery("#gallery1").width(gal1width);
-            jQuery(".gallery1Item").width(gal1width);
-        }
-
-        function adjustHeader(){
-            var header1 = jQuery(".header").first();
-            var h = header1.height();
-            jQuery("body > .container").css({'padding-top' : h + 'px'});
-            header1.css({'top' : '0', 'position':'fixed', 'width':'100%'});
-        }
-
-        jQuery(document).ready(function($){
-            jQuery("#activateNav").click(function(e){
-                /*$('body').toggleClass('static');*/
-                e.preventDefault();
-                /*$(window).scrollTop(0);*/
-                $('#mainNav').toggleClass("open");
-                return false;
-            });
-            /*NAV*/
-            var ww = document.body.clientWidth;
-            if (ww < 800) {
-                $("#mainNav li.menu-item-has-children:not(.placeholder)").prepend("<div class='tgl2'></div>");
-                $("#mainNav li.menu-item-has-children>a").click(function(e) {
-                    if($(this).parent("li").hasClass("placeholder")){
-                        e.preventDefault();
-                        $(this).parent("li").toggleClass('hover');
-                    } else {
-                        if($(this).parent("li").hasClass("hover")){
-                            if ($(e.target).closest(".tgl2").length){
-                                e.preventDefault();
-                                $(this).parent("li").toggleClass('hover');
-                            }
-                        } else {
-                            e.preventDefault();
-                            $(this).parent("li").toggleClass('hover');
-                        }
-                    }
-                });
-                $("#mainNav li>.tgl2").click(function(e) {
-                    $(this).parent("li").toggleClass('hover');
-                });
-            } else {
-                $("#mainNav li").hover(function() {
-                    $(this).addClass('hover');
-                }, function() {
-                    $(this).removeClass('hover');
-                });
-                $("#mainNav li.placeholder>a").click(function(e){
-                    e.preventDefault();
-                    return(false);
-                });
-            }
-            /*/NAV*/
-
-            adjustHeader();
-
-        });
-    </script>
     <?php get_template_part('template-parts/tracking','head'); ?>
 </head>
 
@@ -108,7 +24,7 @@
 <div class="container">
     <div class="header">
         <a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
-            <img src="<?php echo get_template_directory_uri(); ?>/assets/images/logo.png" alt="Logo" />
+            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 183.78"><path d="M140.42 139.27 76.66 75.51c-17.23-17.22-45.42-17.22-62.65.01l62.66-62.65c17.15-17.15 45.51-17.15 62.66 0l63.75 63.75c17.23 17.23 17.23 45.43 0 62.66-17.23 17.23-45.43 17.23-62.66 0Z"/><path d="m12.92 76.61 1.09-1.09c17.23-17.23 45.42-17.23 62.65-.01h.01L108 106.85l-32.42 32.42c-17.23 17.23-45.43 17.23-62.66 0-17.23-17.23-17.23-45.43 0-62.66Z" fill="#949597" fill-rule="evenodd"/><circle cx="108" cy="138.71" r="13.49" fill="#f04924"/><path d="M1.38 171.63H6.5c2.46 0 4.47 2.01 4.47 4.47s-1.99 4.46-4.41 4.46H4.57v3.22H1.38v-12.15Zm5.17 6.17c.97 0 1.75-.76 1.75-1.73s-.78-1.75-1.75-1.75H4.57v3.48h1.98ZM13.07 171.63h3.19v4.33h3.86v-4.33h3.19v12.15h-3.19v-4.63h-3.86v4.63h-3.19v-12.15ZM26.3 171.63h3.19v12.15H26.3v-12.15ZM32.49 171.63h3.19v8.94h4.37v3.21h-7.57v-12.15ZM47.34 171.63h1.43l5.72 12.15H51.3l-.74-1.59h-4.97l-.73 1.59h-3.18l5.67-12.15Zm1.97 7.87-1.23-2.67-1.25 2.67h2.48ZM56.43 171.63h4.5c3.35 0 6.08 2.72 6.08 6.08s-2.72 6.08-6.08 6.08h-4.5v-12.15Zm4.52 9.01c1.59 0 2.88-1.3 2.88-2.88s-1.3-2.87-2.88-2.87h-1.34v5.75h1.34ZM69.44 171.63h7.55v2.64h-4.36v1.98h3.85v2.69h-3.85v2.24h4.36v2.61h-7.55v-12.15ZM79.66 171.63h3.19v8.94h4.37v3.21h-7.57v-12.15ZM89.89 171.63h5.12c2.46 0 4.47 2.01 4.47 4.47s-1.99 4.46-4.41 4.46h-1.99v3.22h-3.19v-12.15Zm5.17 6.17c.97 0 1.75-.76 1.75-1.73s-.78-1.75-1.75-1.75h-1.98v3.48h1.98ZM101.59 171.63h3.19v4.33h3.85v-4.33h3.19v12.15h-3.19v-4.63h-3.85v4.63h-3.19v-12.15ZM114.82 171.63h3.19v12.15h-3.19v-12.15ZM125.62 171.63h1.43l5.72 12.15h-3.19l-.75-1.59h-4.97l-.73 1.59h-3.18l5.67-12.15Zm1.96 7.87-1.23-2.67-1.25 2.67h2.48Z"/><path d="M143.62 171.63h1.43l5.72 12.15h-3.19l-.75-1.59h-4.97l-.73 1.59h-3.18l5.67-12.15Zm1.96 7.87-1.23-2.67-1.25 2.67h2.48ZM152.7 171.63h4.5c3.35 0 6.08 2.72 6.08 6.08s-2.72 6.08-6.08 6.08h-4.5v-12.15Zm4.52 9.01c1.59 0 2.88-1.3 2.88-2.88s-1.3-2.87-2.88-2.87h-1.34v5.75h1.34ZM169.43 177.7c0-3.35 2.72-6.08 6.08-6.08 1.67 0 3.18.66 4.28 1.77l-2.24 2.25c-.53-.52-1.23-.79-2.04-.79-1.65 0-2.85 1.2-2.85 2.85s1.2 2.85 2.85 2.85c.83 0 1.54-.29 2.04-.81l2.27 2.24c-1.13 1.13-2.74 1.8-4.31 1.8-3.35 0-6.08-2.72-6.08-6.08ZM182.16 171.63h3.19v8.94h4.37v3.21h-7.57v-12.15ZM191.93 178.98v-7.36h3.21v7.31c0 .87.71 1.59 1.59 1.59s1.59-.71 1.59-1.59v-7.31h3.21v7.36c0 2.67-2.15 4.8-4.8 4.8s-4.8-2.12-4.8-4.8ZM204.35 171.63h5.36c1.94 0 3.6 1.67 3.6 3.61 0 .83-.31 1.59-.78 2.19.83.66 1.38 1.68 1.38 2.79 0 1.93-1.64 3.56-3.56 3.56h-5.99v-12.15Zm4.73 4.75a1.05 1.05 0 1 0 0-2.1h-1.54v2.11h1.54Zm.6 4.77c.58 0 1.05-.47 1.05-1.05s-.5-1.05-1.05-1.05h-2.14v2.11h2.14Z" fill="#f04924"/></svg>
         </a>
         <a href="#" class="toolTipMobile"><svg class="xrarr" viewBox="0 0 40 17"></svg> Member Login <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
         <div class="navBlock">
@@ -145,6 +61,8 @@
         $image_url2 = get_template_directory_uri() . '/assets/images/pages/about.jpg';
     }
     ?>
-    <div class="innerVisual" style="background-image: url(<?php echo $image_url2; ?>);">
-        <div class="innerVisualTitle"><?php the_field('title'); ?></div>
-    </div>
+    
+    
+ <?php if( !is_front_page()) {
+    get_template_part('template-parts/section', 'page-banner');
+ };?>

@@ -4,8 +4,129 @@
  *
  */
 
-get_header("frontpage");
+get_header();
 ?>
+
+    <div class="visual">
+    <div class="visualCaption">
+        <?php
+        $slideshow_cutoff_date = '1900-01-01';
+        $slideshow_cutoff_date_field = get_field('slideshow_cutoff_date') ?? null;
+        if( !empty($slideshow_cutoff_date_field) ) {
+            $slideshow_cutoff_date = $slideshow_cutoff_date_field;
+        }
+        $args = array(  
+            'post_type'      => 'work',
+            'post_status'    => 'publish',
+            'posts_per_page' => 10,
+            'orderby'        => 'rand',
+            'meta_query'     => array(
+                array(
+                    'key'     => 'header_image',
+                    'value'   => '',
+                    'compare' => '!=',
+                ),
+            ),
+            'date_query'     => array(
+                array(
+                    'after'     => $slideshow_cutoff_date,
+                    'inclusive' => true,
+                ),
+            ),
+        );
+        
+        $loop = new WP_Query($args);
+        $i = 1;
+
+        if ($loop->have_posts()) :
+            while ($loop->have_posts()) : $loop->the_post();
+                $img = get_field('header_image');
+                ?>
+                <div id="visualGaleryItem<?=$i;?>_caption" class="visualGaleryItemCaption">
+                    <?php
+                    $featured_work_post = get_the_ID();
+                    $a = get_field('agency', $featured_work_post);
+                    $c = get_field('client', $featured_work_post);
+                    ?>
+                    <p><em><a href="<?php the_permalink();?>"><?php the_title(); ?></a></em><br />
+                    <?php if($a) { ?>
+                        <strong>Agency:</strong> <?php echo $a->post_title; ?><br />
+                    <?php } ?>
+                    <?php if($c) { ?>
+                        <strong>Client:</strong> <?php echo $c; ?><br />
+                    <?php } ?>
+                    <strong>Category:</strong> <?= strip_tags(get_the_term_list($featured_work_post, 'work-category', '', ', ', ''))?></p>
+                </div>
+                <?php
+                $i++;                
+            endwhile;
+        endif;
+        ?>
+    </div>
+    <div class="visualGalery"
+         data-cycle-timeout=5000
+         data-cycle-fx="tileBlind"
+         data-cycle-tile-count=15
+         data-cycle-slides="> div">
+        <?php
+        $i = 1;
+        if ($loop->have_posts()) : 
+            while ($loop->have_posts()) : $loop->the_post();
+                $img = get_field('header_image') ?? null;
+                $has_video = false;
+                $vimeo = get_field('vimeo') ?? null;
+                $video_urls = get_field('video_urls') ?? null;
+                $featured_video_url = get_field('featured_video_url') ?? null;
+                if( !empty($vimeo) && empty( $featured_video_url ) ) {
+                    $video_id = $vimeo[0]['id_code'];
+                }
+                if( !empty($featured_video_url) || !empty($video_id) || !empty($video_urls) ) {
+                    $has_video = true;
+                }
+                if( $has_video == true && empty($vimeo[0]['id_code']) && !empty($video_urls) || $has_video == true && empty($vimeo) || $has_video == true && !empty($featured_video_url) ) {
+                    // Load value from $featured_video_url or $video_urls
+                    if (!empty($featured_video_url)) {
+                        $iframe = $featured_video_url;
+                    } elseif (!empty($video_urls)) {
+                        $iframe = $video_urls[0]['video_url'];
+                    }
+                    // Load value.
+                    // Use preg_match to find iframe src.
+                    preg_match('/src="(.+?)"/', $iframe, $matches);
+                    $src = $matches[1];
+                    
+                    // Add extra parameters to src and replace HTML.
+                    $params = array(
+                        'controls'  => 0,
+                        'hd'        => 1,
+                        'autohide'  => 1
+                    );
+                    $new_src = add_query_arg($params, $src);
+                }
+                ?>
+                <div class="visualGaleryItem <?=sanitize_title(get_the_title());?>" id="visualGaleryItem<?=$i;?>" style="background-image: url(<?=$img['sizes']['header_image']?>);">
+                    <div class="visualGaleryClickLink" onclick="window.location='<?php the_permalink(); ?>'" style="cursor: pointer;">&nbsp;</div>
+                    <?php
+                        if( !empty($vimeo[0]['id_code']) && empty($iframe) ) : ?>
+                            <a href="https://player.vimeo.com/video/<?=esc_attr( $video_id );?>?color=ffffff&title=0&byline=0&portrait=0" data-vimeo="<?=get_sub_field('vimeo')?>" class="visualGaleryPlay" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/play-button.png"></a>
+                        <?php elseif( empty($vimeo[0]['id_code']) && !empty($iframe) ):?>
+                            <a href="<?=esc_url($new_src);?>" class="visualGaleryPlay" target="_blank"><img src="<?php echo get_template_directory_uri(); ?>/assets/images/play-button.png"></a>
+                        <?php endif;
+                    ?>
+                    <?php if(get_field('logo')) { ?>
+                        <img src="<?=get_field('logo')?>" class="visualGaleryItemLogo">
+                    <?php } ?>
+                </div>
+                <?php
+                $i++;
+            endwhile;
+        endif;
+        wp_reset_postdata(); 
+        ?>
+    </div>
+</div>
+
+
     <div class="visualBlocks">
 
         <?php /* ?>
@@ -341,7 +462,7 @@ get_header("frontpage");
         </div>
 
         <div data-desktopsort="2" class="buttonZone12"  style="margin:0 auto !important; float: none !important;">
-            <a href="<?php echo esc_url( home_url( '/' ) ); ?>work-page/submit-work/" class="button">Sumbit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
+            <a href="<?php echo esc_url( home_url( '/' ) ); ?>spotlight/spotlight-work/" class="button">Sumbit work to be featured <svg class="xrarr" viewBox="0 0 40 17"><line x1="0" y1="8.5" x2="36.8" y2="8.5"></line><polyline points="30,1.7 36.8,8.5 30,15.3 "></polyline></svg></a>
         </div>
 
       <?php /*?>  <?php // Inside Monitor

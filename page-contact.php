@@ -4,7 +4,7 @@
  *
  */
 
-get_header('noimage');
+get_header();
 ?>
     <div class="content noimage">
         <div class="evenOddContactZone">

@@ -4,7 +4,7 @@
  *
  */
 
-get_header('smallimage');
+get_header();
 ?>
     <div class="content">
         <div class="contentZone1234">

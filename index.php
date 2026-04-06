@@ -11,7 +11,7 @@
  */
 
 
-get_header("noimage");
+get_header();
 
 $latest_id = 0;
 /*

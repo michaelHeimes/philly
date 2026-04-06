@@ -16,6 +16,13 @@
  * runs before the init hook. The init hook is too late for some features, such
  * as indicating support for post thumbnails.
  */
+ 
+ if ( ! defined( '_S_VERSION' ) ) {
+     // Replace the version number of the theme on each release.
+     define( '_S_VERSION', '1.1.03' );
+ }
+ 
+ 
 function twentyseventeen_setup() {
     /*
      * Make theme available for translation.
@@ -231,6 +238,34 @@ add_action( 'wp_head', 'twentyseventeen_pingback_header' );
  * Enqueue scripts and styles.
  */
 function twentyseventeen_scripts() {
+    
+    wp_enqueue_style( 'trailhead-style', get_stylesheet_uri(), array(), _S_VERSION );
+    
+    wp_enqueue_style( 'fancybox-css', get_template_directory_uri() . '/fancybox/jquery.fancybox.css', array(), '2.1.4' );
+    
+    wp_enqueue_style( 'trailhead-animate', get_template_directory_uri() . '/assets/css/animate.min.css', array(), _S_VERSION );
+
+    wp_enqueue_style( 'trailhead-shortcodes', get_template_directory_uri() . '/assets/css/shortcodes.css', array(), _S_VERSION );
+    
+    wp_enqueue_style( 'trailhead-template', get_template_directory_uri() . '/assets/css/template.css', array(), _S_VERSION );
+    
+    wp_enqueue_script( 'waypoints', get_template_directory_uri() . '/assets/js/jquery.waypoints.min.js', array('jquery'), _S_VERSION, true );
+    
+    wp_enqueue_script( 'fancybox-js', get_template_directory_uri() . '/fancybox/jquery.fancybox.js', array('jquery'), '2.1.4', true );
+    
+    wp_enqueue_script( 'jquery-cycle2', get_template_directory_uri() . '/assets/js/jquery.cycle2.min.js', array('jquery'), _S_VERSION, true );
+    
+    wp_enqueue_script( 'jquery-cycle2-title', get_template_directory_uri() . '/assets/js/jquery.cycle2.tile.min.js', array('jquery'), _S_VERSION, true );
+    
+    wp_enqueue_script( 'trailhead-scripts-js', get_template_directory_uri() . '/assets/js/scripts.js', array('jquery'), _S_VERSION, true );
+    
+    //wp_enqueue_script( 'trailhead-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
+    
+    if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
+        wp_enqueue_script( 'comment-reply' );
+    }
+    
+    
     /*
 	// Add custom fonts, used in the main stylesheet.
 	wp_enqueue_style( 'twentyseventeen-fonts', twentyseventeen_fonts_url(), array(), null );
@@ -246,7 +281,6 @@ function twentyseventeen_scripts() {
 		wp_enqueue_script( 'comment-reply' );
 	}
     */
-    wp_enqueue_script( 'jquery' );
 }
 add_action( 'wp_enqueue_scripts', 'twentyseventeen_scripts' );
 
@@ -627,6 +661,57 @@ function remove_dynamic_segment($url) {
     
     return $new_url;
 }
+
+
+// Pull images from live site
+function my_image_fallback_logic($url) {
+    // Only run on the local development domain
+    if ($_SERVER['HTTP_HOST'] !== 'philly-ad-club.local') {
+        return $url;
+    }
+
+    $local_domain = site_url();
+    $fallback_domain = 'https://philadelphiaadclub.com';
+    
+    // Get the absolute path to your local uploads folder
+    $uploads = wp_get_upload_dir();
+    $uploads_dir = $uploads['basedir'];
+    $uploads_url = $uploads['baseurl'];
+
+    // Check if the URL is an internal upload
+    if (strpos($url, $uploads_url) !== false) {
+        // Convert URL to local file system path
+        $path = str_replace($uploads_url, $uploads_dir, $url);
+
+        // If file doesn't exist locally, point to the live site
+        if (!file_exists($path)) {
+            return str_replace($local_domain, $fallback_domain, $url);
+        }
+    }
+
+    return $url;
+}
+
+// 1. Filter the raw attachment URL (Works for most basic calls)
+add_filter('wp_get_attachment_url', 'my_image_fallback_logic', 10, 1);
+
+// 2. Filter image attributes (Crucial for srcset/responsive images on front-end)
+add_filter('wp_get_attachment_image_attributes', function($attr) {
+    if (isset($attr['src'])) {
+        $attr['src'] = my_image_fallback_logic($attr['src']);
+    }
+    if (isset($attr['srcset'])) {
+        $sources = explode(', ', $attr['srcset']);
+        $new_sources = [];
+        foreach ($sources as $source) {
+            $parts = explode(' ', trim($source));
+            $parts[0] = my_image_fallback_logic($parts[0]);
+            $new_sources[] = implode(' ', $parts);
+        }
+        $attr['srcset'] = implode(', ', $new_sources);
+    }
+    return $attr;
+}, 10, 1);
 
 
 
