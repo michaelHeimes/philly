@@ -15,6 +15,15 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="<?php echo esc_url( home_url( '/' ) ); ?>favicon.png" />
+    
+    <script type="text/javascript">
+    function adjustHeader(){
+        var header1 = jQuery(".header").first();
+        var h = header1.height();
+        jQuery("body > .container").css({'padding-top' : h + 'px'});
+        header1.css({'top' : '0', 'position':'fixed', 'width':'100%'});
+    }
+    </script>
 
     <?php get_template_part('template-parts/tracking','head'); ?>
 </head>

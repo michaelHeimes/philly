@@ -45,13 +45,6 @@
             jQuery(".gallery1Item").width(gal1width);
         }
 
-        function adjustHeader(){
-            var header1 = jQuery(".header").first();
-            var h = header1.height();
-            jQuery("body > .container").css({'padding-top' : h + 'px'});
-            header1.css({'top' : '0', 'position':'fixed', 'width':'100%'});
-        }
-
         jQuery(document).ready(function($){
             jQuery("#activateNav").click(function(e){
                 /*$('body').toggleClass('static');*/

@@ -55,6 +55,7 @@ jQuery(document).ready(function($){
 		jQuery("body > .container").css({'padding-top' : h + 'px'});
 		header1.css({'top' : '0', 'position':'fixed', 'width':'100%'});
 	}
+	adjustHeader();
 	
 	jQuery("#activateNav").click(function(e){
 		/*$('body').toggleClass('static');*/
@@ -99,7 +100,6 @@ jQuery(document).ready(function($){
 	}
 	/*/NAV*/
 	
-	adjustHeader();
 	
 	jQuery('.textZone').waypoint(function(direction) {
 		//console.log('waypoint1 '+ this.element.id);
